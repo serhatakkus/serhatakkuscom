@@ -1,11 +1,11 @@
 ---
 template: index-page
 slug: /
-title: Wyatt Morriss
-tagline: Graphic Designer
+title: Serhat Akkuş
+tagline: Software Developer, Software Architect and Team Lead
 featuredImage: /assets/toa-heftiba-0rlfirsdvzu-unsplash.jpg
 cta:
   ctaText: Know more
   ctaLink: /about
 ---
-He is a award winning gaming graphic designer, based in sunny side of California. Working as Principal designer at Bethesda
+Software developer and software architect who has experience more than 15 years as a developer and more than 8 years as a team lead. Currently working on their own projects and new ideas with his partners.

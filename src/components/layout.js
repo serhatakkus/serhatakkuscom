@@ -26,7 +26,7 @@ const Layout = ({children, className}) => {
   return (
     <div className="primary-container">
       <Header>
-        <Logo title={siteTitle} />
+        <Logo title="Serhat Akkuş" />
         <Navigation/>
       </Header>
       <main className={"container " + className}>
