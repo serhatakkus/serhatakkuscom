@@ -3,7 +3,7 @@ template: index-page
 slug: /
 title: Serhat Akkuş
 tagline: Software Developer, Software Architect and Team Lead
-featuredImage: /assets/pexels-kevin-ku-577585.jpg
+featuredImage: /assets/kevin-ku-w7ZyuGYNpRQ-unsplash.jpg
 cta:
   ctaText: Know more
   ctaLink: /about
