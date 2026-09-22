@@ -1,9 +1,23 @@
 [build]
-  publish = "public"
   command = "npm run build"
-  
-[build.environment]
-  NODE_VERSION = "10"
+  publish = "dist"
 
-[[plugins]]
-  package = "netlify-plugin-gatsby-cache"
+[build.environment]
+  NODE_VERSION = "22"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/_astro/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"

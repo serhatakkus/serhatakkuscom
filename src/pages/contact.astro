@@ -1,0 +1,222 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHeader from "../components/PageHeader.astro";
+import { socials } from "../data/site";
+---
+
+<Base
+  title="Contact"
+  description="Get in touch with Serhat Akkuş about tutoring, product work or anything else."
+>
+  <PageHeader
+    eyebrow="Contact"
+    title="Say hello."
+    lede="Tutoring, a project you want built, or just a question about something on this site — send it over. I read and answer every message."
+  />
+
+  <section class="section">
+    <div class="wrap contact">
+      <div class="contact__form-col">
+        <!--
+          Netlify Forms: `data-netlify` makes Netlify pick this form up at deploy
+          time. Submissions appear in the Netlify dashboard (Forms tab) and can be
+          set to email you — no backend and no email address exposed on the page.
+          The `bot-field` input is a honeypot; real people never fill it in.
+        -->
+        <form
+          name="contact"
+          method="POST"
+          action="/thanks/"
+          data-netlify="true"
+          netlify-honeypot="bot-field"
+          class="form"
+        >
+          <input type="hidden" name="form-name" value="contact" />
+          <p class="visually-hidden">
+            <label>Leave this field empty: <input name="bot-field" tabindex="-1" /></label>
+          </p>
+
+          <div class="field">
+            <label for="name">Your name</label>
+            <input type="text" id="name" name="name" required autocomplete="name" />
+          </div>
+
+          <div class="field">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required autocomplete="email" />
+          </div>
+
+          <div class="field">
+            <label for="subject">What is this about?</label>
+            <select id="subject" name="subject">
+              <option value="tutoring">Tutoring — university coursework</option>
+              <option value="tutoring-dev">Tutoring — developer or team</option>
+              <option value="project">A project I want built</option>
+              <option value="consulting">Consulting / advice</option>
+              <option value="tennis">The tennis platform</option>
+              <option value="other">Something else</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="7" required
+              placeholder="A few sentences is plenty — what you are studying or working on, and where you are stuck."
+            ></textarea>
+          </div>
+
+          <button type="submit" class="btn">Send message</button>
+        </form>
+      </div>
+
+      <aside class="contact__aside">
+        <h2 class="contact__aside-title">Elsewhere</h2>
+        <ul class="contact__links">
+          {
+            socials.map((s) => (
+              <li>
+                <a href={s.href} rel="me noopener" target="_blank" class="contact__link">
+                  <span class="contact__link-label">{s.label}</span>
+                  <span class="contact__link-handle">{s.handle}</span>
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+
+        <div class="contact__note">
+          <h2 class="contact__aside-title">Response time</h2>
+          <p>
+            Usually within a day or two. If you are writing about tutoring, tell me the course or
+            the codebase and where you are stuck — it makes the first conversation much more useful.
+          </p>
+        </div>
+
+        <div class="contact__note">
+          <h2 class="contact__aside-title">Languages</h2>
+          <p>Write to me in Turkish or English, whichever you prefer.</p>
+        </div>
+      </aside>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .contact {
+    display: grid;
+    gap: var(--space-xl);
+    align-items: start;
+  }
+
+  @media (min-width: 52rem) {
+    .contact {
+      grid-template-columns: 1.5fr 1fr;
+      gap: var(--space-2xl);
+    }
+  }
+
+  .form {
+    display: grid;
+    gap: var(--space-s);
+  }
+
+  .field {
+    display: grid;
+    gap: 0.35rem;
+  }
+
+  .field label {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+
+  .field input,
+  .field textarea,
+  .field select {
+    width: 100%;
+    padding: 0.7em 0.85em;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-strong);
+    border-radius: var(--radius);
+    color: var(--text);
+    font-size: var(--step-0);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .field textarea {
+    resize: vertical;
+    min-height: 8rem;
+    font-family: inherit;
+    line-height: 1.6;
+  }
+
+  .field input:focus,
+  .field textarea:focus,
+  .field select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-wash);
+  }
+
+  .field ::placeholder {
+    color: var(--text-faint);
+  }
+
+  .form .btn {
+    justify-self: start;
+    margin-block-start: var(--space-2xs);
+  }
+
+  .contact__aside-title {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-block-end: var(--space-xs);
+  }
+
+  .contact__links {
+    list-style: none;
+    padding: 0;
+    border-block-start: 1px solid var(--border);
+  }
+
+  .contact__link {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-s);
+    padding-block: var(--space-xs);
+    border-block-end: 1px solid var(--border);
+    text-decoration: none;
+  }
+
+  .contact__link-label {
+    font-weight: 560;
+  }
+
+  .contact__link-handle {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    color: var(--text-faint);
+    text-align: end;
+  }
+
+  .contact__link:hover .contact__link-handle {
+    color: var(--accent);
+  }
+
+  .contact__note {
+    margin-block-start: var(--space-l);
+  }
+
+  .contact__note p {
+    color: var(--text-muted);
+    font-size: var(--step--1);
+  }
+</style>

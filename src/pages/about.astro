@@ -1,0 +1,268 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHeader from "../components/PageHeader.astro";
+import { timeline, languages, expertise } from "../data/site";
+---
+
+<Base
+  title="About"
+  description="Serhat Akkuş — twenty years in software, eight leading teams, now tutoring developers and building products under ParionTech."
+>
+  <PageHeader
+    eyebrow="About"
+    title="Twenty years in, still curious."
+    lede="I have been writing software professionally since before I finished my degree — more than twenty years, most of it in Java, most of it building enterprise systems for the financial sector. I have been a developer, a lead developer, a team leader and an architect, and these days I spend most of my week teaching."
+  />
+
+  <section class="section">
+    <div class="wrap wrap--narrow">
+      <div class="prose">
+        <h2>The short version</h2>
+        <p>
+          I studied Computer Engineering at Yıldız Technical University and started working as a
+          developer before I graduated in January 2005. Nearly all of the two decades since have been
+          spent in the financial sector — large enterprise applications in Java, the kind of systems
+          where a rounding error is a serious incident and the code outlives the team that wrote it.
+        </p>
+        <p>
+          The first years were about learning the craft properly: object-oriented design, design
+          patterns that earn their complexity, relational data modelling, and a great deal of SQL and
+          PL/SQL. Then I moved into leading — lead developer, team leader, software architect — and
+          did that for eight-plus years. That is where I learned the part nobody teaches you in
+          engineering school: the hard problem is almost never the code. It is getting five people to
+          agree on what "done" means, deciding which technical debt to keep, and knowing when the
+          honest answer is "we built the wrong thing."
+        </p>
+        <p>
+          In 2019 I started{" "}
+          <a href="https://pariontech.com" rel="noopener" target="_blank">ParionTech</a>{" "}
+          to build the things I wanted to build properly. And over the last few years I have moved
+          most of my time into tutoring — Java, algorithms and Python, mostly with computer science
+          students at universities in Europe and the US. Teaching one-to-one turns out to be the most
+          direct way to pass on twenty years of expensive lessons.
+        </p>
+
+        <h2>How I think about software</h2>
+        <p>
+          <strong>Improvement belongs inside development, not after it.</strong> The idea behind
+          ParionTech is that refactoring, testing and cleanup are not a phase you schedule when there
+          is time. There is never time. They are part of how the thing gets built.
+        </p>
+        <p>
+          <strong>Design patterns are vocabulary, not architecture.</strong> Twenty years of
+          enterprise Java taught me that the patterns are worth knowing precisely so you can tell
+          when you do not need one. Most over-engineering I have seen came from someone applying a
+          pattern to prove they knew it.
+        </p>
+        <p>
+          <strong>Boring technology wins.</strong> Java, Spring and a well-modelled relational
+          database have carried systems I wrote fifteen years ago that are still running. I would
+          rather spend my thinking on the actual problem than on the framework.
+        </p>
+        <p>
+          <strong>The data model is the real design.</strong> In financial systems especially, get
+          the schema and the domain model right and the application code becomes almost boring. Get
+          them wrong and no amount of clean code above will save you.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap wrap--narrow">
+      <p class="eyebrow">Path</p>
+      <ol class="timeline">
+        {
+          timeline.map((entry) => (
+            <li class="timeline__item">
+              <p class="timeline__period">{entry.period}</p>
+              <div class="timeline__body">
+                <h3 class="timeline__title">{entry.title}</h3>
+                <p class="timeline__org">{entry.org}</p>
+                <p class="timeline__text">{entry.body}</p>
+              </div>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">What I work with</p>
+      <dl class="stack">
+        {
+          expertise.map((g) => (
+            <div class="stack__group">
+              <dt class="stack__label">{g.group}</dt>
+              <dd class="stack__items">
+                <ul class="tags">
+                  {g.items.map((i) => (
+                    <li class="tag tag--solid">{i}</li>
+                  ))}
+                </ul>
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap wrap--narrow">
+      <p class="eyebrow">Spoken languages</p>
+      <ul class="langs">
+        {
+          languages.map((l) => (
+            <li class="langs__item">
+              <span class="langs__name">{l.name}</span>
+              <span class="langs__level">{l.level}</span>
+            </li>
+          ))
+        }
+      </ul>
+
+      <p class="about__cta">
+        <a class="arrow-link" href="/contact/">Get in touch</a>
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .stack {
+    margin-block-start: var(--space-m);
+    border-block-start: 1px solid var(--border);
+  }
+
+  .stack__group {
+    display: grid;
+    gap: var(--space-xs);
+    padding-block: var(--space-s);
+    border-block-end: 1px solid var(--border);
+  }
+
+  @media (min-width: 44rem) {
+    .stack__group {
+      grid-template-columns: 13rem 1fr;
+      gap: var(--space-m);
+      align-items: start;
+    }
+  }
+
+  .stack__label {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    padding-block-start: 0.2rem;
+  }
+
+  .stack__items {
+    margin: 0;
+  }
+
+  .stack .tag--solid {
+    background: var(--bg-elevated);
+    color: var(--text);
+    border-color: var(--border-strong);
+    font-size: 0.8rem;
+    padding: 0.35em 0.8em;
+  }
+
+  .timeline {
+    list-style: none;
+    padding: 0;
+    margin-block-start: var(--space-m);
+    display: grid;
+    gap: var(--space-m);
+  }
+
+  .timeline__item {
+    display: grid;
+    gap: var(--space-2xs);
+    padding-inline-start: var(--space-m);
+    border-inline-start: 1px solid var(--border);
+    position: relative;
+  }
+
+  .timeline__item::before {
+    content: "";
+    position: absolute;
+    inset-inline-start: -4.5px;
+    top: 0.55rem;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+  }
+
+  @media (min-width: 44rem) {
+    .timeline__item {
+      grid-template-columns: 9.5rem 1fr;
+      gap: var(--space-m);
+      align-items: start;
+    }
+  }
+
+  .timeline__period {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    color: var(--text-faint);
+    padding-block-start: 0.15rem;
+  }
+
+  .timeline__title {
+    font-size: var(--step-1);
+  }
+
+  .timeline__org {
+    font-size: var(--step--1);
+    color: var(--accent);
+    margin-block-start: 0.1rem;
+  }
+
+  .timeline__text {
+    color: var(--text-muted);
+    font-size: var(--step--1);
+    margin-block-start: var(--space-2xs);
+    max-width: var(--measure);
+  }
+
+  .langs {
+    list-style: none;
+    padding: 0;
+    margin-block-start: var(--space-s);
+    display: grid;
+    gap: 0;
+  }
+
+  .langs__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: var(--space-s);
+    padding-block: var(--space-xs);
+    border-block-end: 1px solid var(--border);
+  }
+
+  .langs__name {
+    font-family: var(--font-display);
+    font-size: var(--step-1);
+    font-weight: 620;
+    letter-spacing: -0.02em;
+  }
+
+  .langs__level {
+    font-size: var(--step--1);
+    color: var(--text-muted);
+    text-align: end;
+  }
+
+  .about__cta {
+    margin-block-start: var(--space-l);
+  }
+</style>

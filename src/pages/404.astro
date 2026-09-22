@@ -1,0 +1,38 @@
+---
+import Base from "../layouts/Base.astro";
+---
+
+<Base title="Page not found" description="That page does not exist.">
+  <section class="section centered">
+    <div class="wrap wrap--narrow">
+      <p class="eyebrow">404</p>
+      <h1 class="centered__title">This page does not exist.</h1>
+      <p class="lede">
+        Either it moved, or you found a link I broke. Both are possible — the site was rebuilt
+        recently.
+      </p>
+      <p class="centered__actions">
+        <a class="btn" href="/">Go home</a>
+        <a class="btn btn--ghost" href="/contact/">Tell me about the broken link</a>
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .centered {
+    padding-block: var(--space-3xl);
+  }
+
+  .centered__title {
+    font-size: var(--step-5);
+    margin-block: var(--space-xs) var(--space-s);
+  }
+
+  .centered__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-block-start: var(--space-l);
+  }
+</style>

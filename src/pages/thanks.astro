@@ -1,0 +1,35 @@
+---
+import Base from "../layouts/Base.astro";
+---
+
+<Base title="Message sent" description="Thanks for getting in touch.">
+  <section class="section centered">
+    <div class="wrap wrap--narrow">
+      <p class="eyebrow">Sent</p>
+      <h1 class="centered__title">Thank you — it arrived.</h1>
+      <p class="lede">
+        I have your message and I will get back to you, usually within a day or two. If it is
+        urgent, a note on <a href="https://www.linkedin.com/in/serhat-akkus/" rel="noopener" target="_blank">LinkedIn</a>{" "}
+        will reach me faster.
+      </p>
+      <p class="centered__actions">
+        <a class="btn btn--ghost" href="/">Back to the home page</a>
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .centered {
+    padding-block: var(--space-3xl);
+  }
+
+  .centered__title {
+    font-size: var(--step-5);
+    margin-block: var(--space-xs) var(--space-s);
+  }
+
+  .centered__actions {
+    margin-block-start: var(--space-l);
+  }
+</style>
