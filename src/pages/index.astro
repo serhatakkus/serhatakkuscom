@@ -1,0 +1,376 @@
+---
+import Base from "../layouts/Base.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { site, stats, pillars, projects, features } from "../data/site";
+import { getCollection } from "astro:content";
+
+const featured = projects.filter((p) => p.featured);
+
+const posts = features.blog
+  ? (await getCollection("blog", ({ data }) => !data.draft))
+      .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+      .slice(0, 2)
+  : [];
+---
+
+<Base>
+  <!-- ==================== Hero ==================== -->
+  <section class="hero">
+    <div class="wrap">
+      <p class="hero__eyebrow">{site.role} · {site.location}</p>
+
+      <h1 class="hero__title">
+        I build software,<br />
+        and I teach people<br />
+        <em>how to build it.</em>
+      </h1>
+
+      <p class="hero__body">
+        I am Serhat — twenty years of Java and enterprise systems, most of them building financial
+        applications, eight of them leading teams. These days I tutor Java, algorithms and Python
+        one-to-one, mostly to university students in Europe and the US, and build my own work under{" "}
+        <a href="https://pariontech.com" rel="noopener" target="_blank">ParionTech</a>.
+      </p>
+
+      <div class="hero__actions">
+        <a class="btn" href="/tutoring/">Work with me</a>
+        <a class="btn btn--ghost" href="/projects/">See what I build</a>
+      </div>
+
+      <dl class="stats">
+        {
+          stats.map((s) => (
+            <div class="stats__item">
+              <dt class="stats__value">{s.value}</dt>
+              <dd class="stats__label">{s.label}</dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <!-- ==================== What I do ==================== -->
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">What I do</p>
+      <div class="grid grid--3 pillars">
+        {
+          pillars.map((p) => (
+            <a class="card card--link pillar" href={p.href}>
+              <h2 class="pillar__title">{p.title}</h2>
+              <p class="pillar__summary">{p.summary}</p>
+              <ul class="pillar__points">
+                {p.points.map((pt) => (
+                  <li>{pt}</li>
+                ))}
+              </ul>
+              <span class="arrow-link pillar__more">More</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== Selected work ==================== -->
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Selected work</p>
+      <div class="grid grid--2 work">
+        {featured.map((p) => <ProjectCard {...p} />)}
+      </div>
+      <p class="section__more"><a class="arrow-link" href="/projects/">All projects</a></p>
+    </div>
+  </section>
+
+  <!-- ==================== Writing ==================== -->
+  {
+    features.blog && posts.length > 0 && (
+      <section class="section">
+        <div class="wrap">
+          <p class="eyebrow">Writing</p>
+          <ul class="post-list">
+            {posts.map((post) => (
+              <li>
+                <a class="post-row" href={`/blog/${post.id}/`}>
+                  <time class="post-row__date" datetime={post.data.date.toISOString()}>
+                    {post.data.date.toLocaleDateString("en-GB", {
+                      day: "numeric",
+                      month: "short",
+                      year: "numeric",
+                    })}
+                  </time>
+                  <span class="post-row__title">{post.data.title}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+          <p class="section__more">
+            <a class="arrow-link" href="/blog/">All writing</a>
+          </p>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- ==================== Off the clock ==================== -->
+  <section class="section">
+    <div class="wrap">
+      <div class="offclock">
+        <div>
+          <p class="eyebrow">Off the clock</p>
+          <h2 class="offclock__title">Tennis and chess, both amateur, both seriously.</h2>
+          <p class="offclock__body">
+            Two games that punish the same mistake: playing the shot you wish you had instead of the
+            one in front of you. I am not good at either, and I am getting better at both.
+          </p>
+          <a class="arrow-link" href="/beyond/">The longer version</a>
+        </div>
+        <div class="offclock__icons" aria-hidden="true">
+          <span>🎾</span><span>♞</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== CTA ==================== -->
+  <section class="section">
+    <div class="wrap">
+      <div class="cta">
+        <h2 class="cta__title">Looking for a tutor, or someone to build the thing?</h2>
+        <p class="cta__body">Tell me what you are working on. I answer every message.</p>
+        <a class="btn" href="/contact/">Get in touch</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  /* ---------- Hero ---------- */
+  .hero {
+    padding-block: clamp(3rem, 9vw, 7rem) var(--space-xl);
+  }
+
+  .hero__eyebrow {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+
+  .hero__title {
+    font-size: var(--step-6);
+    margin-block-start: var(--space-s);
+    letter-spacing: -0.025em;
+  }
+
+  /* The third line is the accent, in colour rather than italic. */
+  .hero__title em {
+    font-style: normal;
+    color: var(--accent);
+  }
+
+  .hero__body {
+    max-width: 52ch;
+    margin-block-start: var(--space-m);
+    font-size: var(--step-1);
+    line-height: 1.55;
+    color: var(--text-muted);
+  }
+
+  .hero__body a {
+    color: var(--text);
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-block-start: var(--space-l);
+  }
+
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+    gap: var(--space-m);
+    margin-block-start: var(--space-xl);
+    padding-block-start: var(--space-m);
+    border-block-start: 1px solid var(--border);
+  }
+
+  .stats__value {
+    font-family: var(--font-mono);
+    font-size: var(--step-3);
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: var(--accent);
+  }
+
+  .stats__label {
+    margin: 0;
+    margin-block-start: 0.25rem;
+    font-size: var(--step--1);
+    color: var(--text-muted);
+    max-width: 22ch;
+  }
+
+  /* ---------- Pillars ---------- */
+  .pillars {
+    margin-block-start: var(--space-m);
+  }
+
+  .pillar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+    text-decoration: none;
+  }
+
+  .pillar:hover {
+    color: inherit;
+  }
+
+  .pillar__title {
+    font-size: var(--step-2);
+  }
+
+  .pillar__summary {
+    color: var(--text-muted);
+    font-size: var(--step--1);
+  }
+
+  .pillar__points {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    gap: 0.3rem;
+    font-size: var(--step--1);
+  }
+
+  .pillar__points li {
+    padding-inline-start: 1.6em;
+    position: relative;
+    color: var(--text);
+  }
+
+  .pillar__points li::before {
+    content: "—";
+    position: absolute;
+    inset-inline-start: 0;
+    color: var(--accent);
+  }
+
+  .pillar__more {
+    margin-block-start: auto;
+    padding-block-start: var(--space-xs);
+  }
+
+  .work {
+    margin-block-start: var(--space-m);
+  }
+
+  .section__more {
+    margin-block-start: var(--space-m);
+  }
+
+  /* ---------- Post list ---------- */
+  .post-list {
+    list-style: none;
+    padding: 0;
+    margin-block-start: var(--space-s);
+    border-block-start: 1px solid var(--border);
+  }
+
+  .post-row {
+    display: flex;
+    align-items: baseline;
+    gap: var(--space-s);
+    padding-block: var(--space-s);
+    border-block-end: 1px solid var(--border);
+    text-decoration: none;
+  }
+
+  .post-row__date {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    color: var(--text-faint);
+    flex-shrink: 0;
+    min-width: 8.5rem;
+  }
+
+  .post-row__title {
+    font-family: var(--font-display);
+    font-size: var(--step-2);
+    font-weight: 650;
+    letter-spacing: -0.025em;
+  }
+
+  @media (max-width: 34rem) {
+    .post-row {
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+  }
+
+  /* ---------- Off the clock ---------- */
+  .offclock {
+    display: grid;
+    gap: var(--space-m);
+    align-items: center;
+    background: var(--bg-sunken);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-l);
+  }
+
+  @media (min-width: 46rem) {
+    .offclock {
+      grid-template-columns: 1fr auto;
+    }
+  }
+
+  .offclock__title {
+    font-size: var(--step-3);
+    margin-block: var(--space-xs) var(--space-s);
+    max-width: 24ch;
+  }
+
+  .offclock__body {
+    color: var(--text-muted);
+    max-width: 54ch;
+    margin-block-end: var(--space-s);
+  }
+
+  .offclock__icons {
+    display: flex;
+    gap: var(--space-s);
+    font-size: clamp(2.5rem, 7vw, 4rem);
+    line-height: 1;
+    opacity: 0.85;
+  }
+
+  /* ---------- CTA ---------- */
+  .cta {
+    text-align: center;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-xl) var(--space-m);
+    background:
+      radial-gradient(60% 120% at 50% 0%, var(--accent-wash), transparent 70%),
+      var(--bg-elevated);
+  }
+
+  .cta__title {
+    font-size: var(--step-3);
+    max-width: 22ch;
+    margin-inline: auto;
+  }
+
+  .cta__body {
+    color: var(--text-muted);
+    margin-block: var(--space-xs) var(--space-m);
+  }
+</style>

@@ -1,0 +1,118 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHeader from "../components/PageHeader.astro";
+---
+
+<Base
+  title="Beyond work"
+  description="Tennis, chess, and what two amateur games taught Serhat Akkuş about building software."
+>
+  <PageHeader
+    eyebrow="Beyond work"
+    title="Tennis and chess."
+    lede="Both amateur. Both taken seriously. Both, it turns out, teaching me the same lesson from different directions."
+  />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="pursuits">
+        <article class="pursuit">
+          <span class="pursuit__icon" aria-hidden="true">🎾</span>
+          <h2 class="pursuit__title">Tennis</h2>
+          <p>
+            I play regularly, and badly enough to still be improving. Tennis is a game of recovering
+            from your last mistake fast enough to play the next ball — which is a skill I would
+            recommend to anyone who writes software for a living.
+          </p>
+          <p>
+            It is also how{" "}
+            <a href="https://tenisplatformu.org" rel="noopener" target="_blank">tenisplatformu.org</a>{" "}
+            came about. I joined the Çanakkale tennis community in 2023 and its admin team not long
+            after — a community that needed better tooling than a group chat, and I happened to be
+            the person in it who could build that. Around 120 players use the app now. Of everything
+            on this site, it is the project I am most attached to: software that made a real thing
+            better for people I actually see every week.
+          </p>
+        </article>
+
+        <article class="pursuit">
+          <span class="pursuit__icon" aria-hidden="true">♞</span>
+          <h2 class="pursuit__title">Chess</h2>
+          <p>
+            An amateur, permanently. What keeps me at the board is that chess is completely honest
+            with you: there is no bad luck, no unfair bounce, no one else to blame. You lost because
+            you missed something. That is an unusual thing to spend your free time volunteering for.
+          </p>
+          <p>
+            The most useful habit chess gave me is checking my opponent's reply before making my own
+            move — which in software means asking what breaks, who gets paged, and what this looks
+            like in two years, before I commit to the clever solution.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap wrap--narrow">
+      <div class="prose">
+        <h2>Why this is on a professional website</h2>
+        <p>
+          Because the overlap is real. Both games punish the same mistake — playing the shot you wish
+          you had instead of the one actually in front of you — and so does building software. Most
+          bad architecture I have seen came from designing for the system somebody hoped to have
+          rather than the one they had.
+        </p>
+        <p>
+          And because if you are thinking about working with me, you probably want some sense of who
+          you would be talking to every week. This is it: someone who likes games with no luck in
+          them, and who will tell you what he actually thinks.
+        </p>
+        <p><a class="arrow-link" href="/contact/">Say hello</a></p>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .pursuits {
+    display: grid;
+    gap: var(--space-m);
+  }
+
+  @media (min-width: 46rem) {
+    .pursuits {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .pursuit {
+    background: var(--bg-elevated);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: var(--space-l);
+  }
+
+  .pursuit__icon {
+    font-size: 2.5rem;
+    line-height: 1;
+    display: block;
+  }
+
+  .pursuit__title {
+    font-size: var(--step-3);
+    margin-block: var(--space-xs) var(--space-s);
+  }
+
+  .pursuit p {
+    color: var(--text-muted);
+  }
+
+  .pursuit p + p {
+    margin-block-start: var(--space-s);
+  }
+
+  .pursuit a {
+    color: var(--accent);
+  }
+</style>

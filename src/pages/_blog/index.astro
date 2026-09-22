@@ -1,0 +1,106 @@
+---
+import Base from "../../layouts/Base.astro";
+import PageHeader from "../../components/PageHeader.astro";
+import { getCollection } from "astro:content";
+
+const posts = (await getCollection("blog", ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+---
+
+<Base
+  title="Writing"
+  description="Notes on software development, teaching, and building things that people actually use — by Serhat Akkuş."
+>
+  <PageHeader
+    eyebrow="Writing"
+    title="Notes, occasionally."
+    lede="Things I have learned the slow way — about building software, teaching it, and the gap between the two. I write when I have something worth saying rather than on a schedule."
+  />
+
+  <section class="section">
+    <div class="wrap wrap--narrow">
+      {
+        posts.length === 0 ? (
+          <p class="muted">Nothing published yet. Come back soon.</p>
+        ) : (
+          <ul class="posts">
+            {posts.map((post) => (
+              <li class="posts__item">
+                <a class="posts__link" href={`/blog/${post.id}/`}>
+                  <time class="posts__date" datetime={post.data.date.toISOString()}>
+                    {fmt(post.data.date)}
+                  </time>
+                  <h2 class="posts__title">{post.data.title}</h2>
+                  <p class="posts__desc">{post.data.description}</p>
+                  {post.data.tags.length > 0 && (
+                    <ul class="tags posts__tags">
+                      {post.data.tags.map((t) => (
+                        <li class="tag">{t}</li>
+                      ))}
+                    </ul>
+                  )}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+
+      <p class="posts__rss">
+        <a class="arrow-link" href="/rss.xml">Subscribe by RSS</a>
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .posts {
+    list-style: none;
+    padding: 0;
+    border-block-start: 1px solid var(--border);
+  }
+
+  .posts__link {
+    display: block;
+    padding-block: var(--space-m);
+    border-block-end: 1px solid var(--border);
+    text-decoration: none;
+  }
+
+  .posts__link:hover {
+    color: inherit;
+  }
+
+  .posts__date {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    color: var(--text-faint);
+  }
+
+  .posts__title {
+    font-size: var(--step-3);
+    margin-block: var(--space-2xs) var(--space-xs);
+    transition: color 0.15s ease;
+  }
+
+  .posts__link:hover .posts__title {
+    color: var(--accent);
+  }
+
+  .posts__desc {
+    color: var(--text-muted);
+    max-width: var(--measure);
+  }
+
+  .posts__tags {
+    margin-block-start: var(--space-xs);
+  }
+
+  .posts__rss {
+    margin-block-start: var(--space-l);
+  }
+</style>

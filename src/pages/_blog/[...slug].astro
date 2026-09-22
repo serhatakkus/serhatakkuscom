@@ -1,0 +1,123 @@
+---
+import Base from "../../layouts/Base.astro";
+import { getCollection, render, type CollectionEntry } from "astro:content";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("blog", ({ data }) => !data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+
+type Props = { post: CollectionEntry<"blog"> };
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+// Reading time straight from the source, no extra Markdown plugin needed.
+const words = (post.body ?? "").trim().split(/\s+/).filter(Boolean).length;
+const minutesRead = `${Math.max(1, Math.round(words / 200))} min read`;
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" });
+---
+
+<Base title={post.data.title} description={post.data.description} article>
+  <article>
+    <header class="post-header">
+      <div class="wrap wrap--narrow">
+        <p class="post-header__back"><a class="back-link" href="/blog/">Writing</a></p>
+        <h1 class="post-header__title">{post.data.title}</h1>
+        <p class="lede">{post.data.description}</p>
+        <p class="post-header__meta">
+          <time datetime={post.data.date.toISOString()}>{fmt(post.data.date)}</time>
+          {post.data.updated && <> · updated {fmt(post.data.updated)}</>}
+          {` · ${minutesRead}`}
+        </p>
+        {
+          post.data.tags.length > 0 && (
+            <ul class="tags post-header__tags">
+              {post.data.tags.map((t) => (
+                <li class="tag">{t}</li>
+              ))}
+            </ul>
+          )
+        }
+      </div>
+    </header>
+
+    <div class="section">
+      <div class="wrap wrap--narrow">
+        <div class="prose">
+          <Content />
+        </div>
+
+        <footer class="post-footer">
+          <p class="muted">
+            Thanks for reading. If this was useful — or wrong — I would genuinely like to hear about
+            it.
+          </p>
+          <div class="post-footer__actions">
+            <a class="btn btn--ghost" href="/blog/">More writing</a>
+            <a class="btn" href="/contact/">Get in touch</a>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </article>
+</Base>
+
+<style>
+  .post-header {
+    padding-block: var(--space-xl) var(--space-l);
+    border-block-end: 1px solid var(--border);
+  }
+
+  .post-header__back {
+    margin-block-end: var(--space-s);
+  }
+
+  .back-link {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    text-decoration: none;
+  }
+
+  .back-link::before {
+    content: "← ";
+  }
+
+  .back-link:hover {
+    color: var(--accent);
+  }
+
+  .post-header__title {
+    font-size: var(--step-5);
+    margin-block-end: var(--space-s);
+  }
+
+  .post-header__meta {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    color: var(--text-faint);
+    margin-block-start: var(--space-s);
+  }
+
+  .post-header__tags {
+    margin-block-start: var(--space-s);
+  }
+
+  .post-footer {
+    margin-block-start: var(--space-xl);
+    padding-block-start: var(--space-m);
+    border-block-start: 1px solid var(--border);
+  }
+
+  .post-footer__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+    margin-block-start: var(--space-m);
+  }
+</style>

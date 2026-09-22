@@ -1,0 +1,294 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHeader from "../components/PageHeader.astro";
+
+const formats = [
+  {
+    title: "University coursework",
+    who: "CS students — Europe & US",
+    body: "Most of the people I work with are studying computer science at demanding universities abroad. Object-oriented programming, data structures, algorithms — the courses that decide whether you continue in the degree.",
+    covers: [
+      "Java & object-oriented programming",
+      "Algorithms & data structures",
+      "Python",
+      "Assignments, projects & exam preparation",
+    ],
+  },
+  {
+    title: "Getting unstuck",
+    who: "Working developers",
+    body: "You can ship features but you have hit a ceiling — your code works and you cannot say why it is good or bad. We work on your actual codebase, not toy problems.",
+    covers: [
+      "Design patterns, used properly",
+      "Code review on your real work",
+      "Spring & enterprise Java",
+      "SQL, data modelling & performance",
+    ],
+  },
+  {
+    title: "Teams & companies",
+    who: "Engineering teams",
+    body: "Training and mentoring for a team rather than one person, from onboarding juniors onto a Java codebase to helping seniors make architectural decisions they can defend.",
+    covers: [
+      "Java & Spring training",
+      "Architecture & design review",
+      "Mentoring seniors and new leads",
+      "Legacy modernisation",
+    ],
+  },
+];
+
+const principles = [
+  {
+    title: "You write the code",
+    body: "I do not lecture and I do not screen-share while you watch. You type, you get stuck, and I ask the question that gets you unstuck. Uncomfortable, and it is the only thing that works.",
+  },
+  {
+    title: "Your real work, not toy problems",
+    body: "Your assignment, your codebase, the algorithm you have to implement by Friday. I will not set you unrelated exercises while the thing you are actually graded on sits unfinished.",
+  },
+  {
+    title: "Understanding, not answers",
+    body: "I will not hand you a finished assignment — that helps you once and hurts you at the exam. You will hear what is wrong and why, and then you write it. Twenty years of doing this badly and then better is what you are actually paying for.",
+  },
+  {
+    title: "Your pace, your goals",
+    body: "No fixed curriculum. We start with where you are and what you want, and I adjust as you go.",
+  },
+];
+---
+
+<Base
+  title="Tutoring"
+  description="One-to-one tutoring with Serhat Akkuş — Java, object-oriented programming, algorithms, data structures and Python, for university students, working developers and engineering teams."
+>
+  <PageHeader
+    eyebrow="Tutoring"
+    title="Java, algorithms, Python. One-to-one."
+    lede="I tutor Java, algorithms and Python. Most of my students are at universities in Europe and the US, working through the courses that decide whether they continue in the degree. I also work with developers and engineering teams. Not a course, not a bootcamp — twenty years of enterprise Java sitting with you while you work."
+  >
+    <p class="page-header__actions">
+      <a class="btn" href="/contact/">Ask about availability</a>
+    </p>
+  </PageHeader>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">Who I work with</p>
+      <div class="grid grid--3 formats">
+        {
+          formats.map((f) => (
+            <article class="card format">
+              <p class="format__who">{f.who}</p>
+              <h2 class="format__title">{f.title}</h2>
+              <p class="format__body">{f.body}</p>
+              <ul class="format__covers">
+                {f.covers.map((c) => (
+                  <li>{c}</li>
+                ))}
+              </ul>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">How I teach</p>
+      <div class="grid grid--2 principles">
+        {
+          principles.map((p, i) => (
+            <div class="principle">
+              <span class="principle__num">{String(i + 1).padStart(2, "0")}</span>
+              <div>
+                <h2 class="principle__title">{p.title}</h2>
+                <p class="principle__body">{p.body}</p>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap wrap--narrow">
+      <p class="eyebrow">Practical</p>
+      <dl class="facts">
+        <div class="facts__row">
+          <dt>Format</dt>
+          <dd>Online, one-to-one. Screen-sharing both ways, on your machine and your project.</dd>
+        </div>
+        <div class="facts__row">
+          <dt>Language</dt>
+          <dd>Turkish or English.</dd>
+        </div>
+        <div class="facts__row">
+          <dt>Time zones</dt>
+          <dd>
+            I am in Türkiye and work regularly with students in Europe and the US, so evenings and
+            weekends are normal rather than a favour.
+          </dd>
+        </div>
+        <div class="facts__row">
+          <dt>Sessions</dt>
+          <dd>
+            Usually weekly, 60–90 minutes. We agree a rhythm that fits your schedule rather than a
+            fixed package.
+          </dd>
+        </div>
+        <div class="facts__row">
+          <dt>First conversation</dt>
+          <dd>
+            Free, about 30 minutes. You tell me what you want to get to, I tell you honestly whether
+            I am the right person for it.
+          </dd>
+        </div>
+        <div class="facts__row">
+          <dt>Rates</dt>
+          <dd>Depend on scope and frequency — ask me and I will give you a straight number.</dd>
+        </div>
+      </dl>
+
+      <div class="tutoring-cta">
+        <h2 class="tutoring-cta__title">Want to start?</h2>
+        <p class="muted">
+          Send me a short message: what you are studying or working on, and where you are stuck. No
+          form-filling ritual — a few sentences is plenty.
+        </p>
+        <a class="btn" href="/contact/">Get in touch</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .page-header__actions {
+    margin-block-start: var(--space-m);
+  }
+
+  .formats,
+  .principles {
+    margin-block-start: var(--space-m);
+  }
+
+  .format {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xs);
+  }
+
+  .format__who {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .format__title {
+    font-size: var(--step-2);
+  }
+
+  .format__body {
+    color: var(--text-muted);
+    font-size: var(--step--1);
+  }
+
+  .format__covers {
+    list-style: none;
+    padding: 0;
+    margin-block-start: auto;
+    padding-block-start: var(--space-xs);
+    border-block-start: 1px solid var(--border);
+    display: grid;
+    gap: 0.35rem;
+    font-size: var(--step--1);
+  }
+
+  .format__covers li {
+    padding-inline-start: 1.4em;
+    position: relative;
+  }
+
+  .format__covers li::before {
+    content: "↳";
+    position: absolute;
+    inset-inline-start: 0;
+    color: var(--text-faint);
+  }
+
+  .principle {
+    display: flex;
+    gap: var(--space-s);
+    align-items: start;
+  }
+
+  .principle__num {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    color: var(--accent);
+    padding-block-start: 0.35rem;
+  }
+
+  .principle__title {
+    font-size: var(--step-1);
+  }
+
+  .principle__body {
+    color: var(--text-muted);
+    font-size: var(--step--1);
+    margin-block-start: var(--space-2xs);
+  }
+
+  .facts {
+    margin-block-start: var(--space-m);
+    border-block-start: 1px solid var(--border);
+  }
+
+  .facts__row {
+    display: grid;
+    gap: var(--space-2xs);
+    padding-block: var(--space-s);
+    border-block-end: 1px solid var(--border);
+  }
+
+  @media (min-width: 40rem) {
+    .facts__row {
+      grid-template-columns: 11rem 1fr;
+      gap: var(--space-m);
+    }
+  }
+
+  .facts dt {
+    font-family: var(--font-mono);
+    font-size: var(--step--1);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+  }
+
+  .facts dd {
+    margin: 0;
+    color: var(--text-muted);
+  }
+
+  .tutoring-cta {
+    margin-block-start: var(--space-xl);
+    padding: var(--space-l);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--bg-sunken);
+  }
+
+  .tutoring-cta__title {
+    font-size: var(--step-3);
+  }
+
+  .tutoring-cta p {
+    margin-block: var(--space-xs) var(--space-m);
+    max-width: var(--measure);
+  }
+</style>

@@ -1,0 +1,157 @@
+---
+import Base from "../layouts/Base.astro";
+import PageHeader from "../components/PageHeader.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import { projects } from "../data/site";
+import { Image } from "astro:assets";
+import seasons from "../assets/projects/tenisplatformu-seasons.png";
+import standings from "../assets/projects/tenisplatformu-standings.png";
+---
+
+<Base
+  title="Projects"
+  description="Things Serhat Akkuş has built and can show — the Çanakkale Tennis Platform, ParionTech, and this site. Two decades of enterprise financial systems sit behind NDAs."
+>
+  <PageHeader
+    eyebrow="Projects"
+    title="Things I have built."
+    lede="Most of my twenty years went into enterprise systems for the financial sector — work that lives behind a login, under an NDA, and cannot be shown here. What follows is what I can show: the things I own and am actively building."
+  />
+
+  <section class="section">
+    <div class="wrap">
+      <div class="grid grid--2">
+        {projects.map((p) => <ProjectCard {...p} />)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap wrap--narrow">
+      <p class="eyebrow">A closer look</p>
+      <div class="prose casestudy">
+        <h2>Çanakkale Tenis Platformu</h2>
+        <p>
+          A tennis community runs on information: who is playing whom, when the court is booked, what
+          the score was, where that leaves the standings. For a long time ours lived in a group chat
+          and a spreadsheet, which works right up until it does not.
+        </p>
+        <p>
+          I joined the community in 2023 and its admin team not long after, so I saw the problem from
+          the inside before I wrote a line of code. In 2025 I built the platform that replaced all of
+          it: player profiles, league and tournament structures, fixture generation, result entry and
+          season standings — for a community of roughly 120 active players, welcoming people
+          regardless of age, gender, profession or background.
+        </p>
+        <p>
+          It is Django and PostgreSQL, deliberately. The interesting problems here are scheduling
+          logic and making result entry fast enough that people actually do it after a match, not
+          framework choices. Boring technology left me the attention to spend on those.
+        </p>
+        <p>
+          It is live, it is used every week, and I am still adding to it — which is the part I like
+          most. Software with real users tells you what to build next, and here the users are people
+          I play against on Saturday.
+        </p>
+        <p>
+          <a class="arrow-link" href="https://tenisplatformu.org" rel="noopener" target="_blank">
+            Visit tenisplatformu.org
+          </a>
+        </p>
+      </div>
+    </div>
+
+    <div class="wrap shots">
+      <figure class="shot">
+        <Image
+          src={seasons}
+          alt="The seasons page of tenisplatformu.org, listing the 2026 winter league and past leagues, tournaments and doubles seasons."
+          widths={[480, 800, 1280]}
+          sizes="(min-width: 46rem) 44vw, 92vw"
+          loading="lazy"
+        />
+        <figcaption>
+          Seasons and organisations — leagues, tournaments and doubles, running back to 2025.
+        </figcaption>
+      </figure>
+
+      <figure class="shot">
+        <Image
+          src={standings}
+          alt="A league page showing the standings table with positions, matches, sets, games and points, above the weekly fixture list."
+          widths={[480, 800, 1280]}
+          sizes="(min-width: 46rem) 44vw, 92vw"
+          loading="lazy"
+        />
+        <figcaption>
+          A league: standings, tie-break rules and the week's fixtures. Player names are blurred here
+          — they are the community's, not mine to republish.
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap wrap--narrow">
+      <div class="projects-cta">
+        <h2 class="projects-cta__title">Have something you want built?</h2>
+        <p class="muted">
+          I take on a small number of product and consulting engagements through ParionTech.
+        </p>
+        <a class="btn" href="/contact/">Tell me about it</a>
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .shots {
+    display: grid;
+    gap: var(--space-m);
+    margin-block-start: var(--space-l);
+  }
+
+  @media (min-width: 46rem) {
+    .shots {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .shot {
+    margin: 0;
+  }
+
+  .shot :global(img) {
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--bg-elevated);
+  }
+
+  .shot figcaption {
+    margin-block-start: var(--space-xs);
+    font-size: var(--step--1);
+    color: var(--text-muted);
+  }
+
+  .casestudy {
+    margin-block-start: var(--space-m);
+  }
+
+  .projects-cta {
+    padding: var(--space-l);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    background: var(--bg-sunken);
+  }
+
+  .projects-cta__title {
+    font-size: var(--step-3);
+  }
+
+  .projects-cta p {
+    margin-block: var(--space-xs) var(--space-m);
+    max-width: var(--measure);
+  }
+</style>
